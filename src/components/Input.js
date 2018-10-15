@@ -4,6 +4,7 @@ import { StyleSheet, TextInput } from 'react-native';
 const Input = ({ style={}, ...props }) => {
   return (
     <TextInput
+      placeholderTextColor="#657B83"
       {...props}
       style={[styles.root, style]} />
   );
@@ -14,9 +15,9 @@ const styles = StyleSheet.create({
     height: 50,
     marginHorizontal: 20,
     paddingHorizontal: 10,
-    borderColor: '#c3c3c3',
+    color: '#eee8d5',
     borderRadius: 2,
-    borderWidth: 1,
+    backgroundColor: '#00212B',
   },
 });
 

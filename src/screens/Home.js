@@ -15,6 +15,7 @@ class Home extends Component {
     return (
       <View style={styles.root}>
         <Touchable
+          onPress={this.navigate('Create')}
           style={styles.btn}
           text="Do not press" />
         <Touchable

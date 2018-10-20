@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Touchable from '../components/Touchable';
+import Touchable from '../../components/Touchable';
 
 class Home extends Component {
   static navigationOptions = {
@@ -17,10 +17,11 @@ class Home extends Component {
         <Touchable
           onPress={this.navigate('Create')}
           style={styles.btn}
-          text="Do not press" />
+          text="Create" />
         <Touchable
+          onPress={this.navigate('Search')}
           style={styles.btn}
-          text="No press this" />
+          text="Search" />
       </View>
     );
   }

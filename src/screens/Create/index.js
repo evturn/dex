@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Keyboard, ScrollView, StyleSheet, View } from 'react-native';
-import Input from '../components/Input';
-import Touchable from '../components/Touchable';
+import Input from '../../components/Input';
+import Touchable from '../../components/Touchable';
 
 class Create extends Component {
   static navigationOptions = {
@@ -100,10 +100,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 20,
     alignSelf: 'flex-end',
-  },
-  header: {
-    backgroundColor: '#004052',
-    color: '#ffffff',
   },
 });
 

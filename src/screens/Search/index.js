@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Keyboard, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { Keyboard, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { connect } from 'react-redux';
 import Input from '../../components/Input';
 import Touchable from '../../components/Touchable';
+import { searchItems } from './actions';
 
 class SearchScreen extends Component {
   static navigationOptions = {
@@ -22,22 +24,10 @@ class SearchScreen extends Component {
     results: [],
   }
 
-  state = {
-    query: '',
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.results !== prevProps.results) {
-      Keyboard.dismiss();
+  searchItems = query => {
+    if (query.trim() !== '') {
+      this.props.searchItems(query);
     }
-  }
-
-  onChangeText = name => text => {
-    this.setState({ [name]: text.trim() });
-  }
-
-  searchItems = () => {
-    console.log(this.state.query);
   }
 
   render() {
@@ -46,13 +36,8 @@ class SearchScreen extends Component {
         <View style={styles.inputContainer}>
           <Input 
             autoCapitalize="none"
-            onChangeText={this.onChangeText('query')}
-            value={this.state.query} />
+            onChangeText={this.searchItems} />
         </View>
-        <Touchable
-          onPress={this.searchItems}
-          style={styles.btn}
-          text="Submit" />
       </ScrollView>
     );
   }
@@ -64,14 +49,24 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#002b36',
   },
-  btn: {
+  item: {
     margin: 20,
-    alignSelf: 'flex-end',
+    borderRadius: 4,
+    paddingVertical: 15,
+    backgroundColor: '#1A343C',
   },
-  inputContainer: {
-    marginVertical: 10,
+  text: {
+    color: '#ffffff',
+    fontSize: 14,
+    lineHeight: 19,
+    textAlign: 'left',
   },
 });
 
-export default SearchScreen;
+function mapStateToProps(state) {
+  return {
+    results: state.results,
+  };
+}
 
+export default connect(mapStateToProps, { searchItems })(SearchScreen);

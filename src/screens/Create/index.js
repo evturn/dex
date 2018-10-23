@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Keyboard, ScrollView, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 import Input from '../../components/Input';
 import Touchable from '../../components/Touchable';
+import { createItem } from './actions';
 
-class Create extends Component {
+class CreateScreen extends Component {
   static navigationOptions = {
     title: 'Create',
     headerBackTitleStyle: {
@@ -48,7 +50,7 @@ class Create extends Component {
   createArticle = e => {
     const { title, content } = this.state;
     if (title.trim() !== '' && content.trim() !== '') {
-      console.log(this.state);
+      this.props.createItem(this.state);
     }
   }
 
@@ -103,4 +105,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Create;
+function mapStateToProps(state) {
+  return {
+    items: state.items,
+  };
+}
+
+export default connect(mapStateToProps, { createItem })(CreateScreen);

@@ -3,6 +3,7 @@ import { Keyboard, ScrollView, StyleSheet, Text, TextInput, View } from 'react-n
 import { connect } from 'react-redux';
 import Input from '../../components/Input';
 import Touchable from '../../components/Touchable';
+import ItemsList from '../../components/ItemsList';
 import { searchItems } from './actions';
 
 class SearchScreen extends Component {
@@ -20,14 +21,8 @@ class SearchScreen extends Component {
     },
   }
 
-  static defaultProps = {
-    results: [],
-  }
-
   searchItems = query => {
-    if (query.trim() !== '') {
-      this.props.searchItems(query);
-    }
+    this.props.searchItems(query.trim());
   }
 
   render() {
@@ -37,6 +32,9 @@ class SearchScreen extends Component {
           <Input 
             autoCapitalize="none"
             onChangeText={this.searchItems} />
+        </View>
+        <View style={styles.results}>
+          <ItemsList data={this.props.results} />
         </View>
       </ScrollView>
     );
@@ -49,17 +47,11 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     backgroundColor: '#002b36',
   },
-  item: {
-    margin: 20,
-    borderRadius: 4,
-    paddingVertical: 15,
-    backgroundColor: '#1A343C',
+  results: {
+    marginTop: 10,
   },
-  text: {
-    color: '#ffffff',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'left',
+  inputContainer: {
+    marginVertical: 10,
   },
 });
 

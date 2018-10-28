@@ -1,10 +1,11 @@
-const createID = initializeIDs();
-
 function itemsReducer(state, action) {
   switch (action.type) {
 
+    case 'FETCH_ITEMS':
+      return { items: action.items, results: action.items };
+
     case 'CREATE_ITEM':
-      const item = { ...action.item, id: createID() };
+      const item = { ...action.item, id: `${state.items.length + 1}` };
       return { ...state, items: state.items.concat(item) };
 
     case 'SEARCH_ITEMS':

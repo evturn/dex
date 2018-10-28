@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { AsyncStorage, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 import Touchable from '../../components/Touchable';
+import { fetchItems } from './actions';
 
 class Home extends Component {
   static navigationOptions = {
     header: null,
+  }
+
+  componentDidMount() {
+    AsyncStorage.getAllKeys((e, keys) => {
+      AsyncStorage.multiGet(keys, (e, stores) => {
+        this.props.fetchItems(stores.map((x, i, store) => JSON.parse(store[i][1])));
+      });
+    });
   }
 
   navigate = screen => () => {
@@ -39,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default connect(state => ({items: state.items}), { fetchItems })(Home);

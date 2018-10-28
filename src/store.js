@@ -1,10 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import rootReducer from './reducers';
 
-const initialState = {
-  items: [],
-  results: [],
-};
+const initialState = {items: [], results: []};
 
 function thunk({ dispatch, getState }) {
   return next => action => {

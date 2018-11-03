@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, Keyboard, ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import Input from '../../components/Input';
+import PopUp from '../../components/PopUp';
 import Touchable from '../../components/Touchable';
 import { createItem } from './actions';
 
@@ -38,14 +39,14 @@ class CreateScreen extends Component {
   
   onCreated = async () => {
     const { items } = this.props;
-    const item = items[items.length - 1];
+    const count = items.length;
+    const item = items[count - 1];
     await AsyncStorage.setItem(item.id, JSON.stringify(item));
     this.setState({
       title: '',
       content: ''
     }, Keyboard.dismiss);
     const saved = await AsyncStorage.getItem(item.id);
-    console.log(saved);
   }
 
   onChangeText = name => text => {
@@ -84,6 +85,7 @@ class CreateScreen extends Component {
             style={styles.btn}
             text="Submit" />
         </ScrollView>
+        <PopUp count={this.props.items.length} />
       </View>
     );
   }
